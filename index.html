@@ -923,13 +923,13 @@
     });
 </script>
 
-<section id="Chatbot" class="section">
+<!--section id="Chatbot" class="section">
     <div class="container section-title text-center" data-aos="fade-up">
         <h2>For Farming Help</h2>
         <p>AI Chatbot</p>
       </div><!-- End Section Title -->
 
-    <div class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+    <!--div class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
         <div class="col-lg-8 col-md-10">
             <div class="card p-4 text-center">
                 <div id="chatbox" style="border: 1px solid #ddd; padding: 10px; height: 300px; overflow-y: auto; margin-bottom: 10px;"></div>
@@ -941,9 +941,9 @@
                 </div>
         </div>
     </div>
-</section>
+</section-->
 
-<script>
+<!--script>
   async function sendMessage() {
     const userMessage = document.getElementById("userInput").value;
     document.getElementById("chatbox").innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
@@ -969,6 +969,82 @@
       console.error("Chatbot error:", error);
     }
   }
+</script-->
+<section id="Chatbot" class="section">
+    <div class="container section-title text-center" data-aos="fade-up">
+        <h2>For Farming Help</h2>
+        <p>AI Chatbot</p>
+    </div><!-- End Section Title -->
+
+    <div class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-lg-8 col-md-10">
+            <div class="card p-4 text-center">
+                <div id="chatbox" style="border: 1px solid #ddd; padding: 10px; height: 300px; overflow-y: auto; margin-bottom: 10px; background: #f9f9f9; border-radius: 5px;"></div>
+                <div class="input-group mt-3">
+                    <input type="text" id="userInput" class="form-control" placeholder="Ask a farming question..." style="border-radius: 5px;">
+                    <button onclick="sendMessage()" class="btn border-0 shadow-none" style="background-color: #ffc451; color: #000;">
+                        <i class="bi bi-send-fill" style="color: #000;"></i> <strong>Send</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const chatbotResponses = {
+        'organic farming': 'Organic farming avoids synthetic fertilizers and pesticides, focusing on natural methods.',
+        'hydroponics': 'Hydroponics is a method of growing plants without soil, using nutrient-rich water.',
+        'food security': 'Food security ensures all people have access to sufficient, safe, and nutritious food.',
+        'climate impact': 'Climate change affects agriculture through extreme weather, droughts, and soil degradation.',
+        'tomato': 'Tomatoes are rich in vitamins C and K and are commonly grown in warm climates.',
+        'rice': 'Rice is a staple food for more than half of the world's population and grows well in flooded fields.',
+        'composting': 'Composting turns organic waste into nutrient-rich soil, improving plant health naturally.',
+        'pesticides': 'Natural pesticides like neem oil can help control pests without harming the environment.',
+        'crop rotation': 'Crop rotation helps maintain soil health and reduce pest infestations by alternating crops each season.',
+        'greenhouse farming': 'Greenhouse farming provides a controlled environment for growing crops year-round.',
+        'aquaponics': 'Aquaponics combines fish farming and hydroponics, creating a sustainable farming system.',
+        'soil health': 'Maintaining soil health is crucial for sustainable farming. Adding organic matter improves fertility.',
+        'water conservation': 'Drip irrigation and rainwater harvesting help conserve water in agriculture.',
+        'sustainable agriculture': 'Sustainable agriculture ensures long-term productivity and environmental health.',
+        'fertilizers': 'Organic fertilizers like compost and manure enhance soil nutrients naturally.',
+        'pest control': 'Biological pest control involves using natural predators to reduce harmful pests.',
+        'carbon footprint': 'Reducing carbon footprint in agriculture involves sustainable practices like crop rotation and organic farming.',
+        'weather impact': 'Extreme weather events like droughts and floods significantly impact crop yields.',
+        'soil erosion': 'Soil erosion can be prevented by planting cover crops and using no-till farming techniques.',
+        'vertical farming': 'Vertical farming maximizes space by growing crops in stacked layers indoors.',
+        'drip irrigation': 'Drip irrigation conserves water by delivering it directly to plant roots.',
+        'urban farming': 'Urban farming includes rooftop gardens, hydroponics, and small-scale city farms.',
+        'organic pesticides': 'Neem oil, garlic spray, and diatomaceous earth are effective organic pesticides.',
+        'plant diseases': 'Crop rotation and resistant varieties help prevent plant diseases.',
+        'crop diversification': 'Growing a variety of crops improves soil health and reduces disease risk.',
+        'pollinators': 'Bees and butterflies play a vital role in pollination and crop production.',
+        'permaculture': 'Permaculture is a sustainable land-use design that mimics natural ecosystems.',
+        'green energy in farming': 'Solar and wind energy are used to power sustainable farming operations.',
+        'food waste reduction': 'Reducing food waste can be done by better storage, composting, and mindful consumption.',
+        'farm-to-table': 'The farm-to-table movement focuses on sourcing food directly from local farms.',
+        'biodegradable packaging': 'Using biodegradable packaging reduces environmental pollution.',
+        'climate-smart agriculture': 'This approach adapts farming to climate change while reducing emissions.',
+        'precision farming': 'Precision farming uses technology to optimize crop yields and resources.'
+    };
+
+    async function sendMessage() {
+        const userMessage = document.getElementById("userInput").value.toLowerCase();
+        document.getElementById("chatbox").innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+        document.getElementById("userInput").value = "";
+
+        let botReply = 'Sorry, I do not understand that.';
+        
+        for (let key in chatbotResponses) {
+            if (userMessage.includes(key)) {
+                botReply = chatbotResponses[key];
+                break;
+            }
+        }
+        
+        document.getElementById("chatbox").innerHTML += `<p><strong>AI:</strong> ${botReply}</p>`;
+        document.getElementById("chatbox").scrollTop = document.getElementById("chatbox").scrollHeight;
+    }
 </script>
 
 
