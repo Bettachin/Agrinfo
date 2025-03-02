@@ -885,30 +885,30 @@
 </section>
 
 <script>
-    async function sendMessage() {
-        const userMessage = document.getElementById("userInput").value;
-        document.getElementById("chatbox").innerHTML += `<p><i class="bi bi-person-fill" style="color: #000;"></i> <strong>You:</strong> ${userMessage}</p>`;
-        document.getElementById("userInput").value = "";
-
-        try {
-            const response = await fetch("/api/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userMessage })
-            });
-
-            const data = await response.json();
-
-            if (data.error) {
-                throw new Error(data.error);
-            }
-
-            document.getElementById("chatbox").innerHTML += `<p><i class="bi bi-cpu-fill" style="color: #000;"></i> <strong>AI:</strong> ${data[0].generated_text}</p>`;
-        } catch (error) {
-            document.getElementById("chatbox").innerHTML += `<p><i class="bi bi-cpu-fill" style="color: #000;"></i> <strong>AI:</strong> Error fetching response</p>`;
-            console.error("Chatbot error:", error);
-        }
+  async function sendMessage() {
+    const userMessage = document.getElementById("userInput").value;
+    document.getElementById("chatbox").innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+    document.getElementById("userInput").value = "";
+  
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage })
+      });
+  
+      const data = await response.json();
+  
+      if (data.error) {
+        throw new Error(data.error);
+      }
+  
+      document.getElementById("chatbox").innerHTML += `<p><strong>AI:</strong> ${data[0].generated_text}</p>`;
+    } catch (error) {
+      document.getElementById("chatbox").innerHTML += `<p><strong>AI:</strong> Error fetching response</p>`;
+      console.error("Chatbot error:", error);
     }
+  }
 </script>
 
 
