@@ -813,54 +813,113 @@
 </section>
 
 <section id="farm-tracking" class="section">
-    <!-- Section Title -->
-    <div class="container section-title text-center" data-aos="fade-up">
-        <h2>Farm-to-Table Tracking</h2>
-        <p>Know where your food comes from</p>
-    </div>
-
-    <!-- Farm Location -->
-    <div class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
-        <div class="col-lg-8 col-md-10">
-            <div class="card p-4 text-center">
-                <h3><i class="bi bi-geo-alt-fill" style="color: #ffc451;"></i> <strong>Farm Location</strong></h3>
-                <div id="map" style="height: 300px; width: 100%;"></div>
-            </div>
+    <div class="container">
+        <!-- Section Title -->
+        <div class="section-title text-center" data-aos="fade-up">
+            <h2>Farm-to-Table Tracking</h2>
+            <p>Know where your food comes from</p>
         </div>
-    </div>
 
-    <!-- Harvest & Delivery Timeline -->
-    <div class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="300">
-        <div class="col-lg-6 col-md-8">
-            <div class="card p-4 text-center">
-                <h3><i class="bi bi-calendar-event" style="color: #ffc451;"></i> <strong>Harvest & Delivery Timeline</strong></h3>
-                <p><i class="bi bi-check-circle-fill" style="color: #ffc451;"></i> <strong>Harvested on:</strong> Feb 28, 2025</p>
-                <p><i class="bi bi-truck" style="color: #ffc451;"></i> <strong>Expected Delivery:</strong> March 2, 2025</p>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Farming Practices -->
-    <div class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="400">
-        <div class="col-lg-6 col-md-8">
-            <div class="card p-4 text-center">
-                <h3><i class="bi bi-seedling" style="color: #ffc451;"></i> <strong>Farming Practices</strong></h3>
-                <p><i class="bi bi-check-circle-fill" style="color: #ffc451;"></i> <strong>Organic Farming</strong></p>
-                <p><i class="bi bi-check-circle-fill" style="color: #ffc451;"></i> <strong>Pesticide-Free</strong></p>
-                <p><i class="bi bi-check-circle-fill" style="color: #ffc451;"></i> <strong>Sustainable Water Use</strong></p>
-
-            </div>
+        <!-- Table Layout for Information -->
+        <div class="table-responsive" data-aos="fade-up" data-aos-delay="200">
+            <table class="table text-center">
+                <tbody>
+                    <!-- Farm Location with Map -->
+                    <tr>
+                        <td colspan="2" class="no-border">
+                            <h3><i class="bi bi-geo-alt-fill" style="color: #ff9800;"></i> <strong>Farm Location</strong></h3>
+                            <div id="map"></div>
+                        </td>
+                    </tr>
+                    <!-- Harvest & Delivery Timeline -->
+                    <tr>
+                        <td class="no-border">
+                            <h3><i class="bi bi-calendar-event" style="color: #ff9800;"></i> <strong>Harvest & Delivery Timeline</strong></h3>
+                            <p><i class="bi bi-check-circle-fill" style="color: #ff9800;"></i> <strong>Harvested on:</strong> Feb 28, 2025</p>
+                            <p><i class="bi bi-truck" style="color: #ff9800;"></i> <strong>Expected Delivery:</strong> March 2, 2025</p>
+                        </td>
+                    </tr>
+                    <!-- Farming Practices (Moved Below) -->
+                    <tr>
+                        <td class="no-border">
+                            <h3><i class="bi bi-seedling" style="color: #ff9800;"></i> <strong>Farming Practices</strong></h3>
+                            <p><i class="bi bi-check-circle-fill" style="color: #ff9800;"></i> <strong>Organic Farming</strong></p>
+                            <p><i class="bi bi-check-circle-fill" style="color: #ff9800;"></i> <strong>Pesticide-Free</strong></p>
+                            <p><i class="bi bi-check-circle-fill" style="color: #ff9800;"></i> <strong>Sustainable Water Use</strong></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
 
+<!-- Leaflet Map CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<!-- Custom Styles -->
+<style>
+    /* Table Styling - No Borders */
+    table {
+        width: 100%;
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        border-collapse: collapse;
+    }
+
+    /* Removes border */
+    .no-border {
+        border: none !important;
+    }
+
+    /* If you want white borders instead, uncomment this:
+    td, th {
+        border: 2px solid #ffffff !important;
+    } */
+
+    /* Map Styling */
+    #map {
+        width: 100%;
+        height: 40vh;
+        max-height: 350px;
+        min-height: 250px;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+        #map {
+            width: 100vw;
+            height: 35vh;
+        }
+    }
+</style>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Map Initialization -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var map = L.map('map').setView([12.6667, 123.8822], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        var map = L.map('map', {
+            center: [12.6667, 123.8822],
+            zoom: 12,
+            zoomControl: true
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
         L.marker([12.6667, 123.8822]).addTo(map)
             .bindPopup("Farm Location: Bulan, PH").openPopup();
+
+        // Ensure the map resizes properly on window resize
+        window.addEventListener('resize', function() {
+            setTimeout(() => map.invalidateSize(), 300);
+        });
     });
 </script>
 
