@@ -1,7 +1,7 @@
 // api/chat.js
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
@@ -13,12 +13,12 @@ export default async function handler(req, res) {
     console.log("Received message:", userMessage);
 
     const API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
-    const API_KEY = process.env.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; // Make sure this is set in Vercel
+    const API_KEY = process.env.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; // Make sure this environment variable is set in Vercel
 
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${API_KEY}`
+        "Authorization": `Bearer ${API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ inputs: userMessage })
@@ -43,4 +43,4 @@ export default async function handler(req, res) {
     console.error("Server error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
