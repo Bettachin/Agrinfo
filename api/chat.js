@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     console.log("Received message:", userMessage);
 
     const API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
-    const API_KEY = process.env.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; // Make sure this is set in Vercel
+    const API_KEY = process.env.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; // Make sure this is set in Vercel
 
     const response = await fetch(API_URL, {
       method: "POST",
