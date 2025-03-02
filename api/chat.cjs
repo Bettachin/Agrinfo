@@ -1,4 +1,4 @@
-// api/chat.js
+// api/chat.cjs
 const fetch = require("node-fetch");
 
 module.exports = async function handler(req, res) {
@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
     console.log("Received message:", userMessage);
 
     const API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
-    // Make sure to set this environment variable in Vercel, e.g., HUGGINGFACE_API_KEY
+    // Make sure your environment variable HUGGINGFACE_API_KEY is set correctly in Vercel
     const API_KEY = process.env.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;
 
     const response = await fetch(API_URL, {
